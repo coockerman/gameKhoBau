@@ -31,7 +31,7 @@ public class _Grid
 
         gridArray = new int[width, height];
 
-        bool showDebug = true;
+        bool showDebug = false;
         if(showDebug)
         {
             debugTextMesh = new TextMesh[width, height];
@@ -67,7 +67,7 @@ public class _Grid
         return cellSize;
     }
 
-    Vector3 GetWorldPosition(int x, int y)
+    public Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x, y) * cellSize + originPosition;
     }
@@ -81,8 +81,7 @@ public class _Grid
     public void SetValue(int x, int y, int value)
     {
         if(x < 0 || y < 0 || x >= width || y >= height) return;
-        gridArray[x, y] = value;
-        debugTextMesh[x, y] .text = value.ToString();
+        gridArray[x, y] = Mathf.Clamp(value, HEAT_MAP_MIN_VALUE, HEAT_MAP_MAX_VALUE);
         if(OnGridValueChanged != null) OnGridValueChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });
     }
     public void SetValue(Vector3 worldPosition, int value)
@@ -90,8 +89,13 @@ public class _Grid
         int x, y;
         GetXY(worldPosition, out x, out y);
         if (x < 0 || y < 0 || x >= width || y >= height) return;
-        gridArray[x, y] = value;
-        debugTextMesh[x, y].text = value.ToString();
+        SetValue(x, y, value);
+        
+    }
+
+    public void AddValue(int x, int y, int value)
+    {
+        SetValue(x, y, GetValue(x, y) + value);
     }
 
     public int GetValue(int x, int y)
@@ -104,5 +108,36 @@ public class _Grid
         int x, y;
         GetXY(worldPosition, out x, out y);
         return GetValue(x, y);
+    }
+
+    public void AddValue(Vector3 worldPosition, int value, int fullValueRange, int totalRange)
+    {
+        int lowerValueAmount = Mathf.RoundToInt((float)value / (totalRange - fullValueRange));
+        GetXY(worldPosition, out int originX, out int originY);
+        for(int x = 0; x < totalRange; x++)
+        {
+            for(int y = 0; y < totalRange - x; y++)
+            {
+                int radius = x + y;
+                int addValueAmount = value;
+                if (radius > fullValueRange)
+                {
+                    addValueAmount -= lowerValueAmount * (radius - fullValueRange);
+                }
+                AddValue(originX + x, originY + y, addValueAmount);
+                if(x!=0)
+                {
+                    AddValue(originX - x, originY + y, addValueAmount);
+                }
+                if (y != 0)
+                {
+                    AddValue(originX + x, originY - y, addValueAmount);
+                }
+                if (y != 0 && x != 0)
+                {
+                    AddValue(originX - x, originY - y, addValueAmount);
+                }
+            }
+        }
     }
 }

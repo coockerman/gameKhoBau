@@ -5,11 +5,13 @@ using CodeMonkey.Utils;
 
 public class _Testing : MonoBehaviour
 {
+    [SerializeField] _HeapMapVisual heapMapVisual;
     _Grid grid;
     // Start is called before the first frame update
     void Start()
     {
-        grid = new _Grid(20, 10, 5f, new Vector3(0, 0));
+        grid = new _Grid(100, 100, 2f, Vector3.zero);
+        heapMapVisual.SetGrid(grid);
     }
 
     private void Update()
@@ -17,8 +19,7 @@ public class _Testing : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             Vector3 position = UtilsClass.GetMouseWorldPosition();
-            int value = grid.GetValue(position);
-            grid.SetValue(position, value + 5);
+            grid.AddValue(position,100, 2, 25);
             
         }
         if(Input.GetMouseButtonDown(1))
