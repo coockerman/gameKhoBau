@@ -46,7 +46,7 @@ public class _HeapMapVisual : MonoBehaviour
                 Vector3 quadSize = new Vector3(1, 1) * grid.GetCellSize();
 
                 int gridValue = grid.GetValue(x, y);
-                float gridValueNormalized = (float) gridValue / Grid.HEAT_MAP_MAX_VALUE;
+                float gridValueNormalized = (float) gridValue / _Grid.HEAT_MAP_MAX_VALUE;
                 Vector2 gridValueUV = new Vector2(gridValueNormalized, 0);
                 MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, grid.GetWorldPosition(x, y) + quadSize * .5f, 0f, quadSize, gridValueUV, gridValueUV);
             }
