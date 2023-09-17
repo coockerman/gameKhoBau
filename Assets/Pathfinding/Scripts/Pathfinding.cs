@@ -162,8 +162,6 @@ public class Pathfinding {
                     neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
                 }
             }
-                
-
         }
         // Down
         if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x, currentNode.y - 1));

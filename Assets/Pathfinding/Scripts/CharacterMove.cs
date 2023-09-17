@@ -35,7 +35,7 @@ public class CharacterMove : MonoBehaviour
             {
                 Vector3 moveDir = (targetPosition - transform.position).normalized;
 
-                Debug.Log(moveDir);
+                Debug.Log("Toạ độ di chuyển: " + moveDir);
                 float distanceBefore = Vector3.Distance(transform.position, targetPosition);
                 transform.position = transform.position + moveDir * speed * Time.deltaTime;
             }
