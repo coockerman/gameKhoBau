@@ -19,6 +19,8 @@ public class Pathfinding {
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
 
+    private bool isWalkDiagonally = true;
+
     public static Pathfinding Instance { get; private set; }
 
     private Grid<PathNode> grid;
@@ -123,17 +125,31 @@ public class Pathfinding {
             // Left
             neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y));
             // Left Down
-            if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y - 1));
+            if(GetNode(currentNode.x-1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y-1).isWalkable)
+            {
+                if (currentNode.y - 1 >= 0 && isWalkDiagonally) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y - 1));
+            }
             // Left Up
-            if (currentNode.y + 1 < grid.GetHeight()) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
+            if(GetNode(currentNode.x - 1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y + 1).isWalkable)
+            {
+                if (currentNode.y + 1 < grid.GetHeight() && isWalkDiagonally) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
+            }
         }
         if (currentNode.x + 1 < grid.GetWidth()) {
             // Right
             neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y));
             // Right Down
-            if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y - 1));
+            if (GetNode(currentNode.x + 1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y - 1).isWalkable)
+            {
+                if (currentNode.y - 1 >= 0 && isWalkDiagonally) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y - 1));
+            }
+
             // Right Up
-            if (currentNode.y + 1 < grid.GetHeight()) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
+            if (GetNode(currentNode.x + 1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y + 1).isWalkable)
+            {
+                if (currentNode.y + 1 < grid.GetHeight() && isWalkDiagonally) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
+            }
+
         }
         // Down
         if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x, currentNode.y - 1));
@@ -142,7 +158,10 @@ public class Pathfinding {
 
         return neighbourList;
     }
-
+    public void ReDiagonally()
+    {
+        isWalkDiagonally = !isWalkDiagonally;
+    }
     public PathNode GetNode(int x, int y) {
         return grid.GetGridObject(x, y);
     }

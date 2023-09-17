@@ -2,7 +2,6 @@ using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using V_AnimationSystem;
 
 public class CharacterMove : MonoBehaviour
 {
@@ -23,7 +22,10 @@ public class CharacterMove : MonoBehaviour
             SetTargetPosition(UtilsClass.GetMouseWorldPosition());
         }
     }
-
+    public Vector2 GetPositionCharacter()
+    {
+        return transform.position;
+    }
     private void HandleMovement()
     {
         if (pathVectorList != null)
@@ -32,6 +34,7 @@ public class CharacterMove : MonoBehaviour
             if (Vector3.Distance(transform.position, targetPosition) > 1f)
             {
                 Vector3 moveDir = (targetPosition - transform.position).normalized;
+
                 Debug.Log(moveDir);
                 float distanceBefore = Vector3.Distance(transform.position, targetPosition);
                 transform.position = transform.position + moveDir * speed * Time.deltaTime;
