@@ -125,30 +125,44 @@ public class Pathfinding {
             // Left
             neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y));
             // Left Down
-            if(GetNode(currentNode.x-1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y-1).isWalkable)
+            if (currentNode.y - 1 >= 0 && isWalkDiagonally)
             {
-                if (currentNode.y - 1 >= 0 && isWalkDiagonally) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y - 1));
+                if (GetNode(currentNode.x - 1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y - 1).isWalkable)
+                {
+                    neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y - 1));
+                }
             }
+                
             // Left Up
-            if(GetNode(currentNode.x - 1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y + 1).isWalkable)
+            if (currentNode.y + 1 < grid.GetHeight() && isWalkDiagonally)
             {
-                if (currentNode.y + 1 < grid.GetHeight() && isWalkDiagonally) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
+                if (GetNode(currentNode.x - 1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y + 1).isWalkable)
+                {
+                    neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
+                }
             }
+                
         }
         if (currentNode.x + 1 < grid.GetWidth()) {
             // Right
             neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y));
             // Right Down
-            if (GetNode(currentNode.x + 1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y - 1).isWalkable)
+            if (currentNode.y - 1 >= 0 && isWalkDiagonally)
             {
-                if (currentNode.y - 1 >= 0 && isWalkDiagonally) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y - 1));
+                if (GetNode(currentNode.x + 1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y - 1).isWalkable)
+                {
+                    neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y - 1));
+                }
             }
-
             // Right Up
-            if (GetNode(currentNode.x + 1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y + 1).isWalkable)
+            if (currentNode.y + 1 < grid.GetHeight() && isWalkDiagonally)
             {
-                if (currentNode.y + 1 < grid.GetHeight() && isWalkDiagonally) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
+                if (GetNode(currentNode.x + 1, currentNode.y).isWalkable || GetNode(currentNode.x, currentNode.y + 1).isWalkable)
+                {
+                    neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
+                }
             }
+                
 
         }
         // Down
