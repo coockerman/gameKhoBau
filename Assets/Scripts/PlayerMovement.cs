@@ -23,5 +23,10 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
+        {
+            animator.SetFloat("LastHorizontal", Input.GetAxisRaw("Horizontal"));
+            animator.SetFloat("LastVertical", Input.GetAxisRaw("Vertical"));
+        }
     }
 }
