@@ -27,7 +27,7 @@ public class PathfindingVisual : MonoBehaviour {
 
     public void SetGrid(Grid<PathNode> grid) {
         this.grid = grid;
-        UpdateVisual();
+        //UpdateVisual();
 
         grid.OnGridObjectChanged += Grid_OnGridValueChanged;
     }
@@ -39,7 +39,7 @@ public class PathfindingVisual : MonoBehaviour {
     private void LateUpdate() {
         if (updateMesh) {
             updateMesh = false;
-            UpdateVisual();
+            //UpdateVisual();
         }
     }
 
@@ -57,7 +57,7 @@ public class PathfindingVisual : MonoBehaviour {
                     quadSize = Vector3.zero;
                 }
 
-                MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, grid.GetWorldPosition(x, y) + quadSize * .5f, 0f, quadSize, Vector2.zero, Vector2.zero);
+                //MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, grid.GetWorldPosition(x, y) + quadSize * .5f, 0f, quadSize, Vector2.zero, Vector2.zero);
             }
         }
 

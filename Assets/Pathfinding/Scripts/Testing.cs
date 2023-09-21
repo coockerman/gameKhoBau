@@ -1,53 +1,41 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 using CodeMonkey;
 
 public class Testing : MonoBehaviour {
-    
     [SerializeField] private PathfindingDebugStepVisual pathfindingDebugStepVisual;
     [SerializeField] private PathfindingVisual pathfindingVisual;
     [SerializeField] private CharacterMove characterPathfinding;
     private Pathfinding pathfinding;
+    public Pathfinding Pathfinding { get { return pathfinding; } }
     Vector3 endPoint;
     List<PathNode> path;
     bool isDraw = true;
 
-    Vector3 mouseWorldPosition;
+    //Vector3 mouseWorldPosition;
 
     private void Start() {
         pathfinding = new Pathfinding(20, 10);
-        pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
-        pathfindingVisual.SetGrid(pathfinding.GetGrid());
+        //pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
+        //pathfindingVisual.SetGrid(pathfinding.GetGrid());
     }
 
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
+            if (Time.timeScale < 0.1f) return;
             endPoint = UtilsClass.GetMouseWorldPosition();
             drawLineEndPoint();
             characterPathfinding.SetTargetPosition(endPoint);
         }
 
-        if (Input.GetMouseButtonDown(1)) {
-            mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
-            pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
-            pathfinding.GetNode(x, y).SetIsWalkable(!pathfinding.GetNode(x, y).isWalkable);
-            drawLineEndPoint();
-            characterPathfinding.SetTargetPosition(endPoint);
-        }
+        //if (Input.GetMouseButtonDown(1)) {
+        //    mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
+        //    closedPosWall(mouseWorldPosition);
+        //    drawLineEndPoint();
+        //    characterPathfinding.SetTargetPosition(endPoint);
+        //}
 
         if(Input.GetKeyDown(KeyCode.C))
         {
@@ -58,6 +46,11 @@ public class Testing : MonoBehaviour {
         {
             pathfinding.ReDiagonally();
         }
+    }
+    public void closedPosWall(Vector3 pos)
+    {
+        pathfinding.GetGrid().GetXY(pos, out int x, out int y);
+        pathfinding.GetNode(x, y).SetIsWalkable(!pathfinding.GetNode(x, y).isWalkable);
     }
     void drawLineEndPoint()
     {

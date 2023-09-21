@@ -8,6 +8,8 @@ public class CharacterMove : MonoBehaviour
     private const float speed = 40f;
     private int currentPathIndex;
     private List<Vector3> pathVectorList;
+    Vector3 moveDir;
+    public Vector3 MoveDir { get { return moveDir; } }
     private void Start()
     {
 
@@ -33,7 +35,7 @@ public class CharacterMove : MonoBehaviour
             Vector3 targetPosition = pathVectorList[currentPathIndex];
             if (Vector3.Distance(transform.position, targetPosition) > 1f)
             {
-                Vector3 moveDir = (targetPosition - transform.position).normalized;
+                moveDir = (targetPosition - transform.position).normalized;
 
                 Debug.Log("Toạ độ di chuyển: " + moveDir);
                 float distanceBefore = Vector3.Distance(transform.position, targetPosition);
@@ -42,6 +44,7 @@ public class CharacterMove : MonoBehaviour
             else
             {
                 currentPathIndex++;
+                moveDir = Vector3.zero;
                 if (currentPathIndex >= pathVectorList.Count)
                 {
                     StopMoving();
