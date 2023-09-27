@@ -27,6 +27,8 @@ public class Pathfinding {
     private List<PathNode> openList;
     private List<PathNode> closedList;
 
+    private List<PathNode> closedListEnemy;
+
     public Pathfinding(int width, int height) {
         Instance = this;
         grid = new Grid<PathNode>(width, height, 10f, Vector3.zero, (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y));
@@ -57,7 +59,6 @@ public class Pathfinding {
         PathNode endNode = grid.GetGridObject(endX, endY);
 
         if (startNode == null || endNode == null) {
-            // Invalid Path
             return null;
         }
 
@@ -108,6 +109,77 @@ public class Pathfinding {
         }
 
         return null;
+    }
+    public List<PathNode> FindPathEnemy(PathNode currentNode)
+    {
+        List<PathNode> duongDi = new List<PathNode> ();
+        closedListEnemy = new List<PathNode>();
+        int i = 0;
+        while (i < 25)
+        {
+            if (GetNeighbour(currentNode) == null) return duongDi;
+            
+            foreach (PathNode neighbourNode in GetNeighbour(currentNode))
+            {
+                if (closedListEnemy.Contains(neighbourNode)) 
+                    continue;
+                if (!neighbourNode.isWalkable)
+                {
+                    closedListEnemy.Add(neighbourNode);
+                    continue;
+                }
+                duongDi.Add(neighbourNode);
+                closedListEnemy.Add (neighbourNode);
+                currentNode = neighbourNode;
+                break;
+            }
+            i++;
+        }
+        return duongDi;
+    }
+    private List<PathNode> GetNeighbour(PathNode currentNode)
+    {
+        List<PathNode> neighbourListt = new List<PathNode>();
+
+        // Tạo danh sách chứa tất cả các điều kiện cần chọn ngẫu nhiên
+        List<System.Action> randomConditions = new List<System.Action>
+    {
+        () =>
+        {
+            if (currentNode.x - 1 >= 0)
+            {
+                neighbourListt.Add(GetNode(currentNode.x - 1, currentNode.y));
+            }
+        },
+        () =>
+        {
+            if (currentNode.x + 1 < grid.GetWidth())
+            {
+                neighbourListt.Add(GetNode(currentNode.x + 1, currentNode.y));
+            }
+        },
+        () =>
+        {
+            if (currentNode.y - 1 >= 0)
+            {
+                neighbourListt.Add(GetNode(currentNode.x, currentNode.y - 1));
+            }
+        },
+        () =>
+        {
+            if (currentNode.y + 1 < grid.GetHeight())
+            {
+                neighbourListt.Add(GetNode(currentNode.x, currentNode.y + 1));
+            }
+        }
+    };
+
+        // Sử dụng Random để chọn ngẫu nhiên một điều kiện và thực thi nó
+        System.Random random = new System.Random();
+        int randomIndex = random.Next(randomConditions.Count);
+        randomConditions[randomIndex].Invoke();
+
+        return neighbourListt;
     }
 
     private List<PathNode> GetNeighbourList(PathNode currentNode) {
@@ -162,6 +234,7 @@ public class Pathfinding {
 
         return neighbourList;
     }
+    
     public void ReDiagonally()
     {
         isWalkDiagonally = !isWalkDiagonally;

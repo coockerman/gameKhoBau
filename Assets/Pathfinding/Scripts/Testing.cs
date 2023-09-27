@@ -42,6 +42,9 @@ public class Testing : MonoBehaviour {
     {
         pathfinding.GetGrid().GetXY(pos, out int x, out int y);
         pathfinding.GetNode(x, y).SetIsWalkable(!pathfinding.GetNode(x, y).isWalkable);
+        if(characterPathfinding!=null && endPoint!= null)
+        characterPathfinding.SetTargetPosition(endPoint);
+
     }
     void drawLineEndPoint()
     {
