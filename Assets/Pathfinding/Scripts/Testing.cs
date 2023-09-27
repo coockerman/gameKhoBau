@@ -5,8 +5,6 @@ using CodeMonkey.Utils;
 using CodeMonkey;
 
 public class Testing : MonoBehaviour {
-    [SerializeField] private PathfindingDebugStepVisual pathfindingDebugStepVisual;
-    [SerializeField] private PathfindingVisual pathfindingVisual;
     [SerializeField] private CharacterMove characterPathfinding;
     private Pathfinding pathfinding;
     public Pathfinding Pathfinding { get { return pathfinding; } }
@@ -20,8 +18,6 @@ public class Testing : MonoBehaviour {
 
     private void Start() {
         pathfinding = new Pathfinding(widthGrid, heightGrid);
-        //pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
-        //pathfindingVisual.SetGrid(pathfinding.GetGrid());
     }
 
     private void Update() {
@@ -31,13 +27,6 @@ public class Testing : MonoBehaviour {
             drawLineEndPoint();
             characterPathfinding.SetTargetPosition(endPoint);
         }
-
-        //if (Input.GetMouseButtonDown(1)) {
-        //    mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
-        //    closedPosWall(mouseWorldPosition);
-        //    drawLineEndPoint();
-        //    characterPathfinding.SetTargetPosition(endPoint);
-        //}
 
         if(Input.GetKeyDown(KeyCode.C))
         {
