@@ -13,11 +13,13 @@ public class Testing : MonoBehaviour {
     Vector3 endPoint;
     List<PathNode> path;
     bool isDraw = true;
+    [SerializeField] int heightGrid = 10;
+    [SerializeField] int widthGrid = 20;
 
     //Vector3 mouseWorldPosition;
 
     private void Start() {
-        pathfinding = new Pathfinding(20, 10);
+        pathfinding = new Pathfinding(widthGrid, heightGrid);
         //pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
         //pathfindingVisual.SetGrid(pathfinding.GetGrid());
     }
