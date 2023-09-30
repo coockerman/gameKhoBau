@@ -11,7 +11,11 @@ public class LookKhobau : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Time.timeScale = 0f;
-        wingame.SetActive(true);
+        if(collision.tag == "Player")
+        {
+            Time.timeScale = 0f;
+            wingame.SetActive(true);
+        }
+       
     }
 }

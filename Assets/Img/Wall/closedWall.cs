@@ -10,7 +10,4 @@ public class closedWall : MonoBehaviour
         testing = FindObjectOfType<Testing>();
         testing.closedPosWall(this.transform.position);
     }
-    
-    
-    
 }

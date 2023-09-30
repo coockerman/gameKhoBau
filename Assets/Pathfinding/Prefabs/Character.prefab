@@ -64,6 +64,7 @@ MonoBehaviour:
   moveSpeed: 30
   rb: {fileID: 7431300565160914046}
   animator: {fileID: 8779723858796362418}
+  boxCollider: {fileID: 7713303541261355319}
 --- !u!95 &8779723858796362418
 Animator:
   serializedVersion: 5

@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator animator;
+    [SerializeField] BoxCollider2D boxCollider;
 
     CharacterMove characterMove;
     Vector2 movement;
@@ -19,9 +20,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (characterMove.MoveDir != Vector3.zero)
         {
+            boxCollider.isTrigger = true;
             animator.SetFloat("Horizontal", characterMove.MoveDir.x);
             animator.SetFloat("Vertical", characterMove.MoveDir.y);
             return;
+        }
+        else
+        {
+            if(boxCollider.isTrigger)
+            {
+                boxCollider.isTrigger = false;
+            }
         }
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
