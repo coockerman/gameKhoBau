@@ -19,7 +19,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"D:/GameKhoBau/Built;D:/GameKhoBau/WebGL Builds;;;;;;;;\"}"
+                "value": "{\"m_Value\":\"C:/Users/ADMIN/Desktop/BuildKhoBau4;C:/Users/ADMIN/Desktop/BuildKhoBau3;C:/Users/ADMIN/Desktop/BuildKhoBau2;C:/Users/ADMIN/Desktop/BuildKhoBau;D:/GameKhoBau/Built;D:/GameKhoBau/WebGL Builds;;;;\"}"
             }
         ]
     }
